@@ -52,7 +52,7 @@ const getVideoComments = asyncHandler(async (req, res) => {
                     },
                     {
                         $addFields: {
-                                        ownerDetails: { $first: "$ownerDetails" } //We put this here(I had prev assigned it in the User model nested pipeline) becuase of scope issues. The `owneerDetails` field belongs to the `Video` model not the `User` model , thus it can't be accessible there.
+                                        ownerDetails: { $first: "$ownerDetails" } //We put this here becuase of scope issues. The `owneerDetails` field belongs to the `Video` model not the `User` model , thus it can't be accessible there.
                         } 
                     }
                 ],
@@ -140,7 +140,7 @@ const updateComment = asyncHandler(async (req, res) => {
     const {commentId, videoId} = req.params;
     const {newContent} = req.body;
 
-    if(!mongoose.isValidObjectId(commentId) || !commentId){ //actually this commentId check is redudant as, if the comment doesn't exist, the endpoint won't be hit at all 
+    if(!mongoose.isValidObjectId(commentId) || !commentId){ // this commentId check is redudant as, if the comment doesn't exist, the endpoint won't be hit at all 
         throw new ApiError(400, "Invalid comment id")
     }
 
