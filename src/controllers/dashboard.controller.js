@@ -8,7 +8,7 @@ import {asyncHandler} from "../utils/asyncHandler.js"
 import { User } from "../models/user.model.js"
 
 const getChannelStats = asyncHandler(async (req, res) => {
-    const {channelId} = req.params;
+    const channelId = req.user?._id; //changed: we can simply get the userId by the verifyJWT middleware(that way we can't veiw other people's stats)
 
 
     if(!mongoose.Types.ObjectId.isValid(channelId)){
@@ -73,7 +73,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
 
 const getChannelVideos = asyncHandler(async (req, res) => {
 
-    const {channelId} = req.params;
+    const channelId = req.user?._id;
     const {page = 1, limit = 10} = req.query
 
     if(!mongoose.Types.ObjectId.isValid(channelId)){
