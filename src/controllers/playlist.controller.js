@@ -4,7 +4,6 @@ import {Video} from "../models/video.model.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asyncHandler.js"
-import { MongoDBCollectionNamespace } from "mongodb"
 
 //Imp: Checking ObjectId's are valid or not is done at the routing level.
 const createPlaylist = asyncHandler(async (req, res) => {
@@ -201,7 +200,7 @@ const updatePlaylist = asyncHandler(async (req, res) => {
    const updateDetails= {
     name: name.trim()
    }
-
+   //so that if no description is recieved, previous description isn't overwritten
    if( description !== undefined){  
     updateDetails.description= description.trim()
    }

@@ -10,11 +10,6 @@ import { User } from "../models/user.model.js"
 const getChannelStats = asyncHandler(async (req, res) => {
     const channelId = req.user?._id; //changed: we can simply get the userId by the verifyJWT middleware(that way we can't veiw other people's stats)
 
-
-    if(!mongoose.Types.ObjectId.isValid(channelId)){
-        throw new ApiError(400, "Invalid channel ID")
-    }
-
     const getTotalViews = await Video.aggregate([
         {
             $match:{ owner: new mongoose.Types.ObjectId(channelId) }
@@ -75,10 +70,6 @@ const getChannelVideos = asyncHandler(async (req, res) => {
 
     const channelId = req.user?._id;
     const {page = 1, limit = 10} = req.query
-
-    if(!mongoose.Types.ObjectId.isValid(channelId)){
-        throw new ApiError(400, "Invalid channel ID")
-    }
 
     const getAllVideos=  Video.aggregate([
         {
