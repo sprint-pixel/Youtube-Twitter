@@ -185,7 +185,7 @@ const deletePlaylist = asyncHandler(async (req, res) => {
         throw new ApiError(404,"Couldn't find playlist or Unathorized request")
     }
 
-    return res.status(200).json(new ApiResponse(200,executeDeletion,"Successfully Deleted Playlist"))
+    return res.status(200).json(new ApiResponse(200,null,"Successfully Deleted Playlist"))
     // TODO: delete playlist
 })
 
